@@ -1,10 +1,9 @@
-#include <iostream>
+#include <stdio.h>
+#include "CopyCtor/CopyCtor.hpp"
 
-using namespace std;
-
-int main(void)
+int main(int argc, char** argv)
 {
-    cout<<"A simple demo"<<endl;
+    CopyCtor::tryCompile();
 
     return 0;
 }
