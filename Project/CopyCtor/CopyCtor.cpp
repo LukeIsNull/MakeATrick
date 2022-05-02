@@ -7,52 +7,70 @@ namespace CopyCtor
 class Candy
 {
 public:
-    explicit Candy(){};
+    Candy(uint32_t _amount):amount(_amount)
+    {
+        std::cout<<"Constructor"<<std::endl;
+    };
+
+    Candy():amount(0)
+    {
+        std::cout<<"Constructor"<<std::endl;
+    };
+
+    Candy(const Candy& obj);
+
+    Candy& operator=(Candy obj);
 
     ~Candy(){};
 
-    static void addCandy(uint32_t _amount, 
-                        std::string _brand,
-                        CandyColor _candyColor,
-                        bool _expired);
+    void addCandy(uint32_t _amount);
     
-    static std::string getBrand();
+    uint32_t getAmount();
 
 private:
     // member variable
-    static uint32_t amount;
-    static std::string brand;
-    static CandyColor candyColor;
-    static bool expired;
+    uint32_t amount;
 };
 
-uint32_t Candy::amount;
-std::string Candy::brand;
-CandyColor Candy::candyColor;
-bool Candy::expired;
-
-void Candy::addCandy(uint32_t _amount, 
-                    std::string _brand,
-                    CandyColor _candyColor,
-                    bool _expired)
+Candy::Candy(const Candy& obj)
 {
-    Candy::amount = _amount;
-    Candy::brand = _brand;
-    Candy::candyColor = _candyColor;
-    Candy::expired = _expired;
+    std::cout<<"Copy Constructor"<<std::endl;
+    if(&obj == this)
+    {
+        return;
+    }
+    amount = obj.amount;
 }
 
-
-std::string Candy::getBrand()
+Candy& Candy::operator=(Candy obj)
 {
-    return brand;
+    std::cout<<"Copy Constructor"<<std::endl;
+    if(&obj == this)
+    {
+        return *this;
+    }
+    amount = obj.amount;
+    return *this;
+}
+
+void Candy::addCandy(uint32_t _amount)
+{
+    Candy::amount = _amount;
+}
+
+uint32_t Candy::getAmount()
+{
+    return Candy::amount;
 }
 
 void tryCompile()
 {
     Candy Candybox;
-    Candybox.addCandy(10, "Kinder", black, false);
-    std::cout<<Candybox.getBrand()<<std::endl;
+    Candybox.addCandy(10);
+    std::cout<<Candybox.getAmount()<<std::endl;
+
+    Candy Candybox_2 = Candybox;
+    std::cout<<Candybox_2.getAmount()<<std::endl;
 }
 
 }
