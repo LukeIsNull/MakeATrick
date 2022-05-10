@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  makeatrick:
+    image: makeatrick
+    build:
+      context: .
+      dockerfile: ./Dockerfile
