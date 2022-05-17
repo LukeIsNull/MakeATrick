@@ -24,12 +24,14 @@ For example, with follow binary:
 - Last two characters (EE = 61) : Checksum
 
 So what's the record type?
-    '00' represents data record
-    '01' represents end of file record
-    '02' represents extended segment address record / address offset
-    '03' represents start segment address record
-    '04' represents extended linear address record
-    '05' represents start linear address record
+    '00': represents data record
+    '01': represents end of file record
+    '02': represents extended segment address record / address offset
+        Since the length of address in hex is only four characters, address range is 0x0000- 0xffff. For larger address, the record type '02' and '04' is used. In record type of '02', the actual data following reord type is related to the offset should be added to following lines. For example, actual data '1000' is following record type '02', and address in following lines would get an offset of '10000' (offset = actual data << 4).
+    '03': represents start segment address record
+    '04': represents extended linear address record
+        The record type represents the address offset to following lines as well. But its offset is represented by actual data << 16, which means the offset is '10000' for actual data of '0001'.
+    '05': represents start linear address record
 
 ## Some tips:
 1. The data width of a .hex file is always a multiple of 8 bits
